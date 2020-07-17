@@ -36,10 +36,18 @@ export default {
             return Math.floor(Math.random() * 100);
         },
     },
-
-    mounted() {
-        this.fetchData();
-    },
+    //!! very careful this element is rendered using router and when doing /user/1
+    // and /user/2 the component will not rerendered, therefore hte life cycle hooks
+    // will not take place !!
+    //beforeRouteUpdate works!! and should be used for this instance
+    // beforeRouteUpdate ( to, from ,next) {
+    //     console.log("before route update")
+    //      this.fetchData();
+    //     next();
+    // },
+     mounted() {
+         this.fetchData();
+     },
     methods: {
         fetchData() {
             var array = [];
@@ -51,7 +59,7 @@ export default {
                     querySnapshot.forEach(function(doc) {
                         array.push(doc.data());
                     });
-                    //console.log('i am called');
+                    console.log('i am called');
                 })
                 .catch((err) => {
                     console.log('SUNT PROST');

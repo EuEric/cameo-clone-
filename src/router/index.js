@@ -11,6 +11,10 @@ export const routes = [
         path: '/user',
         component: User,
         name: 'user',
+        beforeEnter: (to, from, next) => {
+            console.log('IT FIRST GOES TO USER');
+            next();
+        },
         // beforeEnter: (to, from, next) => {
         //     console.log('inside guard');
         //     console.log(to.params.isLoggedIn);

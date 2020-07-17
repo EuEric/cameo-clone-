@@ -32,7 +32,13 @@ export default {
                 //eventBus.$emit('logged', { isLoggedIn: true, id: user.uid });
                 this.changelogged(true);
                 //console.log(user);
-                this.$router.push({ path: '/user/' + user.uid, params: { isLoggedIn: this.logged } }).catch(() => {});
+
+
+                //this has to be fixed, here if we eneter params we will get /user/params
+                //however we want to pass the araibe so the guard can reead it
+                //there is logic problem here
+                this.updateid(user.uid);
+                this.$router.push({ path: `user/${user.uid}`, params: { isLoggedIn: this.logged } }).catch(() => {});
             } else {
                 console.log('inside logged out');
                 // eventBus.$emit('logged', { isLoggedIn: false });
@@ -45,7 +51,7 @@ export default {
         ...mapGetters(['logged']), //maps this.changeLogged() to this.$store.commit('changeLogged') basically
     },
     methods: {
-        ...mapMutations(['changelogged']), //maps this.changeLogged() to this.$store.commit('changeLogged') basically
+        ...mapMutations(['changelogged' , 'updateid']), //maps this.changeLogged() to this.$store.commit('changeLogged') basically
     },
 };
 </script>
