@@ -16,25 +16,9 @@
                       <span v-if="isErr" class="text-danger h2 " style="width:80%">No such account!</span>
                 </div>
                 <form class="form-signin">
-                    <!-- <div class="form-label-group">
-                        <label for="inputEmail" class="font-weight-bold">Email</label>
-                        <input
-                            v-model="formData.email"
-                            type="email"
-                            id="inputEmail"
-                            class="form-control"
-                            placeholder="Email address"
-                            required
-                            autofocus
-                        />
-                    </div> -->
-
                      
                     <div class="form-label-group">
-                        <!-- <label for="inputPassword" class="font-weight-bold">Password</label>
-                        <input v-model="formData.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required />
-                 -->
-                      <label for="inputEmail" class="font-weight-bold">EmailVerify</label>
+                      <label for="inputEmail" class="font-weight-bold text-light">Email</label>
                         <input
                             v-model="formData.email"
                             type="email"
@@ -46,16 +30,47 @@
                         />
                     </div>
                     <div  v-if="isEmail" class="form-label-group">
-                         <label for="inputPassword" class="font-weight-bold">Password</label>
+                        <label for="inputPassword" class="font-weight-bold text-light">Password</label>
                         <input v-model="formData.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required />
                     </div>
-                     <!-- <button @click.prevent="addUserEmail" class="btn btn-lg btn-block text-light font-weight-bold" id="submitButton" type="submit">
+                    <div v-else-if="signUp">
+                         <div  class="form-label-group">
+                        <label for="createPassword" class="font-weight-bold text-light">Create password</label>
+                        <input v-model="formData.password" type="password" id="createPassword" class="form-control" placeholder="Create password" required />
+                    </div>
+                    <div   class="form-label-group" >
+                      <label for="inputName" class="font-weight-bold text-light">Full Name</label>
+                        <input
+                            v-model="formData.name"
+                            type="email"
+                            id="inputName"
+                            class="form-control"
+                            placeholder="Enter full name"
+                            required
+                            autofocus
+                        />
+                    </div> 
+                    <div  class="form-label-group">
+                      <label for="inputUser" class="font-weight-bold text-light">Username</label>
+                        <input
+                            v-model="formData.user"
+                            type="email"
+                            id="inputUser"
+                            class="form-control"
+                            placeholder="Enter username"
+                            required
+                            autofocus
+                        />
+                    </div>
+                     <button @click.prevent="addUserEmail" class="btn btn-lg btn-block text-light font-weight-bold" id="submitButton" type="submit">
                         Sign up
-                    </button>  -->
+                    </button> 
+                    </div>
+                    
                       <button  v-if="isEmail" @click.prevent="logUserEmail" class="btn btn-lg btn-block text-light font-weight-bold" id="submitButton" type="submit">
                        Log In
-                    </button> -->
-                        <button v-if="!isEmail" @click.prevent="emailVerify" class="btn btn-lg btn-block text-light font-weight-bold" id="submitButton" type="submit">
+                    </button> 
+                        <button v-if="!clicked" @click.prevent="emailVerify" class="btn btn-lg btn-block text-light font-weight-bold" id="submitButton" type="submit">
                      Continue
                     </button>
                     <hr class="my-4" />
@@ -94,27 +109,41 @@ export default {
             formData: {
                 email: '',
                 password: '',
+                name: '',
+                user: '',
             },
             isErr : false,
             isEmail : false,
+            clicked : false
         };
     },
     watch : {
-        isErr : function(newVal, oldVal) {
-            console.log("old value is" + oldVal + " new value is " + newVal);
+        isErr : function(newVal) {
+           // console.log("old value is" + oldVal + " new value is " + newVal);
             this.isErr = newVal;
         },
-        isEmail : function(newVal, oldVal) {
-             console.log("old value is" + oldVal + " new value is " + newVal);
+        isEmail : function(newVal) {
+            // console.log("old value is" + oldVal + " new value is " + newVal);
              this.isEmail = newVal;
+        },
+          clicked : function(newVal) {
+           //  console.log("old value is" + oldVal + " new value is " + newVal);
+             this.clicked = newVal;
+    }
+    },
+    computed : {
+        signUp : function(){
+            return this.clicked && !this.isEmail;
         }
     },
-    // computed : {
-    //         isErr: function() {
-    //             return !this.isErr;
-    //         }
-    // },
     methods: {
+        verifySignUp() {
+            // if(this.clicked == true && this.isEmail == false)
+            // return true;
+            // return false;
+            console.log(this.clicked + " banana " + this.isEmail);
+            return false;
+        },
       addUserEmail() {
             firebase
                 .auth()
@@ -128,7 +157,11 @@ export default {
                         .firestore()
                         .collection('users')
                         .doc(cred.user.uid)
-                        .set({});
+                        .set({
+                            username: this.formData.user,
+                            name: this.formData.name,
+
+                        });
                 })
                 .catch(function(error) {
                     console.log(error);
@@ -137,6 +170,7 @@ export default {
         emailVerify() {
             console.log("aaaaaaaa")
              firebase.auth().fetchSignInMethodsForEmail(this.formData.email).then((arr) => {
+                 this.clicked = true;
                  if(!arr.length) {
                     this.isEmail= false;
                     console.log("email not found")
@@ -151,7 +185,6 @@ export default {
             .catch( (error) =>{ 
             //must use arrow function because we need the root vue instance
             //it does not work with normal function declaration
-                // Handle Errors here.
                 var errorMessage = error.message;
                 var errorCode = error.code;
                 console.log(errorCode,errorMessage);
@@ -222,15 +255,9 @@ export default {
 </script>
 
 <style>
-/* .vue-template {
-    margin-top: 10%;
 
-    margin-right: 2%;
-} */
 #custom {
     margin-bottom: 1rem;
-
-    /* background-color: teal; */
 }
 #submitButton {
     background-color: coral;
@@ -238,11 +265,9 @@ export default {
 }
 #title {
     padding: 0.5rem;
-    /* background-color: crimson !important; */
     margin-bottom: 0;
 }
 #jumbotronText {
-    /* color: cyan !important; */
     font-size: 2.5rem;
      margin-bottom: 1.5rem;
 }
