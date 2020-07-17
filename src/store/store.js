@@ -16,18 +16,22 @@ export const store = new Vuex.Store({
             state.isLoggedIn = payload;
             console.log('changed the logged status');
         },
-        logout: (state) => {
+        logout(state) {
+            state.isLoggedIn = false;
+            console.log('commited action');
+        },
+    },
+    actions: {
+        logout(context) {
             firebase
                 .auth()
                 .signOut()
                 .then(function() {
-                    state.isLoggedIn = false;
-                    console.log('LOGOUT INITIATED, WHY???');
+                    console.log('inside action, about to commit');
+                    context.commit('logout');
                 })
                 .catch(function(error) {
-                    // An error happened.
                     console.log(error);
-                    state.isLoggedIn = true;
                 });
         },
     },

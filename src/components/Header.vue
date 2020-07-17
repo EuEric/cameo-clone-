@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
     name: 'Header',
     data() {
@@ -41,7 +41,7 @@ export default {
         ...mapGetters(['logged']),
     },
     methods: {
-        ...mapMutations(['logout']),
+        ...mapActions(['logout'])
     },
 };
 </script>
