@@ -1,6 +1,10 @@
 <template v-if="items.length">
     <div>
+         <!-- <router-view name="test"/> -->
         <router-view></router-view>
+        <!-- <router-view name="details"></router-view> -->
+    
+         <!-- <router-view name="details"/> -->
         <ul class="list-group d-flex flex-row bg-transparent justify-content-between">
             <li class="list-group-item bg-transparent" v-for="item in items" :key="item.id">
                 
@@ -19,7 +23,9 @@
                 </div>
             </li>
         </ul>
+        
     </div>
+    
 </template>
 
 <script>

@@ -26,7 +26,7 @@ export default {
         desc : '',
         url : '',
          link : {
-                name: 'detail',
+                name: 'user',
                 params: { id: this.$route.params.id}
             }
       }
@@ -39,6 +39,9 @@ export default {
               description: this.desc,
           }).then(() => {
               console.log(this.$route.params.id)
+          }).catch((err) => {
+              console.log("something wrong happened");
+              console.log(err);
           })
         }
     }

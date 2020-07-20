@@ -3,7 +3,15 @@
         <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
         <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
         <Header />
+
+        <!-- router view is put here because details component is no longer a 
+        child elemend of User.vue, therefore it has to be put in App.vue,
+        as there is no nesting anymore,
+        only edit is still at nesting -->
+        <router-view name="details"></router-view>
         <router-view></router-view>
+          <!-- <router-view name="test"></router-view> -->
+       
         <!-- <Cards :items="items" /> -->
     </div>
 </template>
@@ -38,7 +46,7 @@ export default {
                 //however we want to pass the araibe so the guard can reead it
                 //there is logic problem here
                 this.updateid(user.uid);
-                this.$router.push({ path: `user/${user.uid}`, params: { isLoggedIn: this.logged } }).catch(() => {});
+                this.$router.push({ name: 'user', params: { id : user.uid,isLoggedIn: this.logged } }).catch(() => {});
             } else {
                 console.log('inside logged out');
                 // eventBus.$emit('logged', { isLoggedIn: false });
