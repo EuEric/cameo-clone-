@@ -52,7 +52,7 @@ export default {
     //     next();
     // },
      mounted() {
-         this.fetchData();
+         this.fetchData(); //fetch the data right after the navigation is completed
      },
     methods: {
         fetchData() {
