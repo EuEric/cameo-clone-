@@ -13,11 +13,13 @@
           <!-- <router-view name="test"></router-view> -->
        
         <!-- <Cards :items="items" /> -->
+        <Footer/>
     </div>
 </template>
 
 <script>
 import Header from './components/Header.vue';
+import Footer from './components/Footer.vue'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@/assets/css/main.css';
 import firebase from 'firebase';
@@ -28,6 +30,7 @@ export default {
     name: 'App',
     components: {
         Header,
+        Footer,
     },
     data() {
         return {

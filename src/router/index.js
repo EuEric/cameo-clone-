@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import User from '../components/User.vue';
-import Home from '../components/Auth.vue';
-import UserDetail from '../components/user/UserDetail.vue';
-import UserEdit from '../components/user/UserEdit.vue';
-import Test from '../components/Test.vue';
+import User from '../components/User';
+import Home from '../components/Auth';
+import UserDetail from '../components/user/UserDetail';
+import UserEdit from '../components/user/UserEdit';
+import Test from '../components/Test';
+import Enroll from '../components/Enroll';
 Vue.use(VueRouter);
 export const routes = [
     { path: '', component: Home, name: 'home' },
@@ -37,6 +38,11 @@ export const routes = [
             // },
             { path: 'edit', component: UserEdit, name: 'edit' },
         ],
+    },
+    {
+        path: '/enroll',
+        component: Enroll,
+        name: 'enroll',
     },
     { path: '*', redirect: '/' }, // wildcard to redirect wrong paths
 ];
