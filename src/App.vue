@@ -32,6 +32,7 @@ export default {
     data() {
         return {
             items: ['a', 'b', 'c', 'd'],
+            api : process.env.VUE_APP_API,
         };
     },
     created() {
