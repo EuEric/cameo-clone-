@@ -5,7 +5,7 @@
 
     <router-link tag="button" class="btn btn-primary"
    :to="link">Edit User</router-link>
-  </div>
+    </div>
 </template>
 
 <script>
