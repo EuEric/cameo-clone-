@@ -1,14 +1,13 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import App from './App.vue';
-import router from './router';
-import firebase from 'firebase';
-Vue.use(firebase); //sets up firebase object
-Vue.use(VueRouter); //sets up router object
+import Vue from "vue";
+import VueRouter from "vue-router";
+import App from "./App.vue";
+import router from "./router";
+import firebase from "firebase";
+Vue.use(firebase);
+Vue.use(VueRouter);
 
 Vue.config.productionTip = false;
 
-// TODO: Replace the following with your app's Firebase project configuration
 var firebaseConfig = {
     apiKey: process.env.VUE_APP_apiKey,
     authDomain: process.env.VUE_APP_authDomain,
@@ -20,21 +19,19 @@ var firebaseConfig = {
     measurementId: process.env.VUE_APP_measurementId,
 };
 
-// Initialize Firebase
 export const app = firebase.initializeApp(firebaseConfig);
-console.log('I AM CALLED FIRST');
 
 export const eventBus = new Vue({
-    name: 'event',
+    name: "event",
     data: {
         isLoggedIn: false,
     },
 });
 
-import { store } from './store/store';
-// this is how we deconstruct and import the store object
+import { store } from "./store/store";
+
 new Vue({
     render: (h) => h(App),
     router,
     store,
-}).$mount('#app');
+}).$mount("#app");

@@ -23,14 +23,13 @@
           </div>
           <p class="text">Ready to become a creator?</p>
           <div id="buttondiv">
-            <!-- <button type="button" class="btn btn-block btn-outline-light btn-lg">Danger</button> -->
             <router-link
               :to="link"
               tag="button"
               class="btn btn-block btn-outline-light btn-lg"
-            >Enroll</router-link>
-            <small>© 2020 - {{year}}</small>
-            <!-- matches year dynamically -->
+              >Enroll</router-link
+            >
+            <small>© 2020 - {{ year }}</small>
           </div>
         </div>
       </div>
@@ -43,14 +42,14 @@ export default {
   data() {
     return {
       link: {
-        name: 'enroll',
-        year: ''
-      }
+        name: "enroll",
+        year: "",
+      },
     };
   },
   created() {
     this.year = new Date().getFullYear();
-  }
+  },
 };
 </script>
 
@@ -60,13 +59,11 @@ footer {
 }
 #jeff {
   max-width: 80% !important;
-  /* background-color: white !important; */
   margin: 0 auto;
 }
 #right {
   max-width: 75%;
   margin: 0 auto;
-  /* background-color: red; */
 }
 .icons {
   padding: 1rem;
