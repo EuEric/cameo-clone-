@@ -1,11 +1,11 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import firebase from 'firebase';
+import Vue from "vue";
+import Vuex from "vuex";
+import firebase from "firebase";
 Vue.use(Vuex);
 export const store = new Vuex.Store({
     state: {
         isLoggedIn: false,
-        id: '',
+        id: "",
     },
     getters: {
         logged: (state) => {
@@ -18,16 +18,14 @@ export const store = new Vuex.Store({
     mutations: {
         changelogged: (state, payload) => {
             state.isLoggedIn = payload;
-            // console.log('changed the logged status');
         },
         logout(state) {
             state.isLoggedIn = false;
-            state.id = '';
-            // console.log('commited action');
+            state.id = "";
         },
         updateid(state, newid) {
             state.id = newid;
-            console.log('succesfully updated the id');
+            console.log("succesfully updated the id");
         },
     },
     actions: {
@@ -35,11 +33,10 @@ export const store = new Vuex.Store({
             firebase
                 .auth()
                 .signOut()
-                .then(function() {
-                    // console.log('inside action, about to commit');
-                    context.commit('logout');
+                .then(function () {
+                    context.commit("logout");
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     console.log(error);
                 });
         },

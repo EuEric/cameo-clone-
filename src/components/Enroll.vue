@@ -1,6 +1,6 @@
 <template>
-<div>
-   <div class="container">
+  <div>
+    <div class="container">
       <div class="d-flex flex-column align-items-center">
         <h3 class="text-light">Aplică acum!</h3>
         <p class="text-light">
@@ -8,7 +8,7 @@
           înscrie aici și vom fi în legătură.
         </p>
       </div>
-     <form class="needs-validation" novalidate>
+      <form class="needs-validation" novalidate>
         <div class="form-group text-light">
           <label for="nume">Nume</label>
           <input
@@ -20,9 +20,7 @@
             v-model="creator.name"
             placeholder="Nume"
           />
-          <div class="invalid-feedback">
-            Adaugă un nume.
-          </div>
+          <div class="invalid-feedback">Adaugă un nume.</div>
         </div>
         <div class="form-group text-light">
           <label for="email">Adresa de email</label>
@@ -57,7 +55,11 @@
         </div>
         <div class="form-group text-light">
           <label for="exampleFormControlSelect1">Unde te putem gasi</label>
-          <select class="form-control " id="exampleFormControlSelect1" v-model="creator.social">
+          <select
+            class="form-control"
+            id="exampleFormControlSelect1"
+            v-model="creator.social"
+          >
             <option>Facebook</option>
             <option>Instagram</option>
             <option>Youtube</option>
@@ -74,7 +76,7 @@
               id="invalidCheck"
               required
             />
-            <label class="form-check-label  text-light" for="invalidCheck">
+            <label class="form-check-label text-light" for="invalidCheck">
               Acceptă termenii și condițiile
             </label>
             <div class="invalid-feedback text-light">
@@ -82,75 +84,82 @@
             </div>
           </div>
         </div>
-        <button  @click.prevent="addCreator" class="btn btn-primary" type="submit">Trimite</button>
+        <button
+          @click.prevent="addCreator"
+          class="btn btn-primary"
+          type="submit"
+        >
+          Trimite
+        </button>
       </form>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
-   import firebase from 'firebase'
+import firebase from "firebase";
 export default {
- 
-    data() {
-        return {
-            creator : {
-                name:  '',
-                email: '',
-                phone: '',
-                social: ''
-
-            }
-        }
-    },
-    methods : {
-        enrollButton() {
-            console.log("my name jeff")
-        },
-         formValidation() {
-        window.addEventListener("load",function () {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName("needs-validation");
-            // console.log(forms);
-            // Loop over them and prevent submission
-            // eslint-disable-next-line no-unused-vars
-            var validation = Array.prototype.filter.call(forms, function (form ) {
-              form.addEventListener("submit",function (event) {
-                  if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                  }
-                  form.classList.add("was-validated");
-                },false);
-            });
-          },
-          false);
+  data() {
+    return {
+      creator: {
+        name: "",
+        email: "",
+        phone: "",
+        social: "",
       },
-        addCreator() {
-            console.log("something")
-            firebase
-                .firestore()
-                .collection("creators")
-                .add({
-                    name: this.creator.name,
-
-                email: this.creator.email,
-                phone: this.creator.phone,
-                social: this.creator.social,
-                }).then((docref) => {
-                    console.log("document created with id: " + docref.id);
-                }).catch(function(error) {
-                    console.error("Error adding document: ", error);
-});
+    };
+  },
+  methods: {
+    enrollButton() {
+      console.log("my name jeff");
+    },
+    formValidation() {
+      window.addEventListener(
+        "load",
+        function () {
+          var forms = document.getElementsByClassName("needs-validation");
+          var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener(
+              "submit",
+              function (event) {
+                if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+                form.classList.add("was-validated");
+              },
+              false
+            );
+          });
         },
+        false
+      );
     },
-    created() {
-        this.formValidation();
-    },
-};
+    addCreator() {
+      console.log("something");
+      firebase
+        .firestore()
+        .collection("creators")
+        .add({
+          name: this.creator.name,
 
+          email: this.creator.email,
+          phone: this.creator.phone,
+          social: this.creator.social,
+        })
+        .then((docref) => {
+          console.log("document created with id: " + docref.id);
+        })
+        .catch(function (error) {
+          console.error("Error adding document: ", error);
+        });
+    },
+  },
+  created() {
+    this.formValidation();
+  },
+};
 </script>
 
 <style>
-
 </style>
